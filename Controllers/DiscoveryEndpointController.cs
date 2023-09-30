@@ -14,7 +14,7 @@ public class DiscoveryEndpointController : ControllerBase
             {
                 vehicles = new
                 {
-                    href = "/api/vehicles"
+                    href = "/api/products"
                 }
             },
             message = "Welcome to the Auto API!",

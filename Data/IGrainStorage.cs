@@ -27,7 +27,6 @@ namespace Zerno.Data
         void DeleteProduct(Product product);
 
         void CreateRequest(Request request);
-        void UpdateRequest(Request request);
         void DeleteRequest(Request request);
 
         void CreateUser(User user);

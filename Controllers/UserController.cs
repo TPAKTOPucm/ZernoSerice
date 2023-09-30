@@ -5,6 +5,7 @@ using Zerno.Models;
 
 namespace Zerno.Controllers
 {
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly IGrainStorage _db;

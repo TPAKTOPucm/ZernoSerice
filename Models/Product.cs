@@ -25,6 +25,10 @@ namespace Zerno.Models
     }
     public class Product
     {
+        public Product()
+        {
+            Requests = new HashSet<Request>();
+        }
         public int? Id { get; set; }
         public SeedType Type { get; set; }
         public ulong FullAmmount { get; set; }
