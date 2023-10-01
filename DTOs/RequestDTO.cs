@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Zerno.Models;
 
 namespace Zerno.DTOs
@@ -7,7 +8,8 @@ namespace Zerno.DTOs
     {
         public int? Id { get; set; }
         public ulong Ammount { get; set; }
-        public DateOnly Date { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
         public int ProductId { get; set; }
         public int WanterId { get; set; }
     }

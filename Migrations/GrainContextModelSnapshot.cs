@@ -50,7 +50,7 @@ namespace Zerno.Migrations
 
                     b.HasIndex("DealerId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Zerno.Models.Request", b =>
@@ -78,7 +78,7 @@ namespace Zerno.Migrations
 
                     b.HasIndex("WanterId");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("Zerno.Models.User", b =>
@@ -101,7 +101,7 @@ namespace Zerno.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Zerno.Models.Product", b =>

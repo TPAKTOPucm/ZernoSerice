@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Zerno.Models
 {
@@ -33,8 +34,10 @@ namespace Zerno.Models
         public SeedType Type { get; set; }
         public ulong FullAmmount { get; set; }
         public ulong Ammount { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
         public decimal Price { get; set; }
         public int DealerId { get; set; }
         [JsonIgnore]

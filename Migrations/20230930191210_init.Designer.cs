@@ -11,7 +11,7 @@ using Zerno.Data;
 namespace Zerno.Migrations
 {
     [DbContext(typeof(GrainContext))]
-    [Migration("20230930182539_init")]
+    [Migration("20230930191210_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
