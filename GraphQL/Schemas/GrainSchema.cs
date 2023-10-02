@@ -1,5 +1,6 @@
 ﻿using GraphQL.Types;
 using Zerno.Data;
+using Zerno.GraphQL.Mutations;
 using Zerno.GraphQL.Queries;
 
 namespace Zerno.GraphQL.Schemas
@@ -9,6 +10,7 @@ namespace Zerno.GraphQL.Schemas
         public GrainSchema(IGrainStorage db)
         {
             Query = new GrainQuery(db);
+            Mutation = new GrainMutation(db);
         }
     }
 }

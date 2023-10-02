@@ -14,6 +14,7 @@ namespace Zerno.GraphQL.GraphTypes
             Field(p => p.Type).Description("Тип товара");
             Field(p => p.StartDate).Description("Даата начала продаж");
             Field(p => p.EndDate).Description("Дата окончания продаж");
+            Field(p => p.Dealer, type: typeof(UserGraphType)).Description("Поставщик дданного товара");
         }
     }
 }
