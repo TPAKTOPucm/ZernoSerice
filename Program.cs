@@ -18,11 +18,12 @@ builder.Services.AddDbContext<GrainContext>(options => options.UseSqlite(
     ));
 builder.Services.AddScoped<IGrainStorage, GrainService>();
 builder.Services.AddScoped<ISchema, GrainSchema>();
-builder.Services.AddGraphQL(options => { options.EnableMetrics = true; }).AddSystemTextJson();
+builder.Services.AddGraphQL(options => { options.EnableMetrics = true; options.UnhandledExceptionDelegate = e => Console.WriteLine($"{e.Exception.Message}\n{e.Exception.StackTrace}"); }).AddSystemTextJson();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseGraphQL<ISchema>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
