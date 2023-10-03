@@ -14,7 +14,7 @@ namespace Zerno
             {
                 self = new { href = $"/api/product/{product.Id}" },
                 dealer = new { href = $"/api/user/{product.DealerId}" },
-                requests = new { href = $"/api/request/getByProductId?productId={product.Id}" }
+                requests = new { href = $"/api/request/getByProduct/{product.Id}" }
             };
             return resource;
         }
@@ -37,8 +37,7 @@ namespace Zerno
             resource._links = new
             {
                 self = new { href = $"/api/user/{user.Id}" },
-                //dealer = new { href = $"/api/user/{user.DealerId}" },
-                //requests = new { href = $"/api/request/getByProductId?productId={user.Id}" }
+                requests = new { href = $"/api/request/getByUser/{user.Id}" }
             };
             return resource;
         }

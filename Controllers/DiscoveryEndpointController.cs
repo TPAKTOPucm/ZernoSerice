@@ -12,12 +12,16 @@ public class DiscoveryEndpointController : ControllerBase
         {
             _links = new
             {
-                vehicles = new
+                products = new
                 {
-                    href = "/api/products"
+                    href = "/api/product"
+                },
+                users = new
+                {
+                    href = "/api/user"
                 }
             },
-            message = "Welcome to the Auto API!",
+            message = "Welcome to the Grain API!",
         };
         return Ok(welcome);
     }
