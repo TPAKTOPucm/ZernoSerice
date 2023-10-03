@@ -1,4 +1,5 @@
-﻿using Zerno.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Zerno.Models;
 
 namespace Zerno.Data
 {
@@ -51,19 +52,19 @@ namespace Zerno.Data
 
         public Product GetProductById(int productId) => _context.Products.Find(productId);
 
-        public ICollection<Product> GetProducts() => _context.Products.ToList();
+        public ICollection<Product> GetProducts() => _context.Products.Include(p => p.Dealer).ToList();
 
         public ICollection<Product> GetProducts(int index, int count) => _context.Products.Skip(index).Take(count).ToList();
 
         public Request GetRequestById(int requestId) => _context.Requests.Find(requestId);
 
-        public ICollection<Request> GetRequests() => _context.Requests.ToList();
+        public ICollection<Request> GetRequests() => _context.Requests.Include(r => r.Product).ThenInclude(r => r.Dealer).ToList();
 
-        public ICollection<Request> GetRequestsByProductId(int productId) => _context.Requests.Where(r => r.ProductId == productId).ToList();
+        public ICollection<Request> GetRequestsByProductId(int productId) => _context.Requests.Include(r => r.Wanter).Where(r => r.ProductId == productId).ToList();
 
-        public ICollection<Request> GetRequestsByUserId(int userId) => _context.Requests.Where(r => r.WanterId == userId).ToList();
+        public ICollection<Request> GetRequestsByUserId(int userId) => _context.Requests.Include(r => r.Product).Where(r => r.WanterId == userId).ToList();
 
-        public User GetUserById(int userId) => _context.Users.Find(userId);
+        public User GetUserById(int userId) => _context.Users.Include(u => u.Products).ThenInclude(u => u.Requests).Where(u => u.Id == userId).FirstOrDefault();
 
         public ICollection<User> GetUsers() => _context.Users.ToList();
 

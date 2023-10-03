@@ -14,13 +14,16 @@ namespace Zerno.GraphQL.Queries
         {
             _db = db;
             Field<ListGraphType<ProductGraphType>>("Products", "Return all products", resolve: GetAllProducts);
-            Field<ProductGraphType>("Product", "Return product by id", resolve: GetProduct);
+            Field<ProductGraphType>("Product", "Return product by id", new QueryArguments(new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id" }), resolve: GetProduct);
 
             Field<ListGraphType<UserGraphType>>("Users", "Return all users", resolve: GetAllUsers);
-            Field<UserGraphType>("User", "Return user by id", resolve: GetUser);
+            Field<UserGraphType>("User", "Return user by id", new QueryArguments(new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id" }), resolve: GetUser);
 
-            Field<ListGraphType<RequestGraphType>>("Requests", "Return all requests by product or wanter id or return all requests if query has no ids", resolve: GetRequests);
-            Field<RequestGraphType>("Request", "Return request by id", resolve: GetRequest);
+            Field<ListGraphType<RequestGraphType>>("Requests", "Return all requests by product or wanter id or return all requests if query has no ids", new QueryArguments(
+                new QueryArgument<IntGraphType> { Name = "productId"},
+                new QueryArgument<IntGraphType> { Name = "userId"}
+                ),resolve: GetRequests);
+            Field<RequestGraphType>("Request", "Return request by id", new QueryArguments(new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id" }), resolve: GetRequest);
         }
 
         private ICollection<Product> GetAllProducts(IResolveFieldContext _) => _db.GetProducts();
@@ -28,8 +31,6 @@ namespace Zerno.GraphQL.Queries
 
         private ICollection<User> GetAllUsers(IResolveFieldContext _) => _db.GetUsers();
         private User GetUser(IResolveFieldContext<object> context) => _db.GetUserById(context.GetArgument<int>("id"));
-
-        //private ICollection<Request> GetAllRequests(IResolveFieldContext _) => _db.GetRequests();
         private Request GetRequest(IResolveFieldContext<object> context) => _db.GetRequestById(context.GetArgument<int>("id"));
         private ICollection<Request> GetRequests(IResolveFieldContext<object> context)
         {

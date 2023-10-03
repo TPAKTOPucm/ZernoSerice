@@ -7,7 +7,7 @@ namespace Zerno.GraphQL.GraphTypes
     {
         public RequestGraphType() 
         {
-            Name = "reuest";
+            Name = "request";
             Field(r => r.Wanter, type: typeof(UserGraphType)).Description("Пользователя, предложивший сделку");
             Field(r => r.Product, type: typeof(ProductGraphType));
             Field(r => r.Date).Description("Дата сделки");
