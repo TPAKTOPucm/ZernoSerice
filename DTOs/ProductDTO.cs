@@ -5,7 +5,6 @@ namespace Zerno.DTOs
 {
     public class ProductDTO
     {
-        public int? Id { get; set; }
         public SeedType Type { get; set; }
         public ulong FullAmmount { get; set; }
         public ulong Ammount { get; set; }
