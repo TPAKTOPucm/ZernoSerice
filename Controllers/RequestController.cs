@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Zerno.Data;
 using Zerno.DTOs;
 using Zerno.Models;
+using Zerno.Services;
 
 namespace Zerno.Controllers
 {

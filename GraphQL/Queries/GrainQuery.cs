@@ -1,9 +1,9 @@
 ﻿using GraphQL;
 using GraphQL.Execution;
 using GraphQL.Types;
-using Zerno.Data;
 using Zerno.GraphQL.GraphTypes;
 using Zerno.Models;
+using Zerno.Services;
 
 namespace Zerno.GraphQL.Queries
 {

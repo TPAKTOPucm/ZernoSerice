@@ -1,7 +1,7 @@
 ﻿using GraphQL.Types;
-using Zerno.Data;
 using Zerno.GraphQL.Mutations;
 using Zerno.GraphQL.Queries;
+using Zerno.Services;
 
 namespace Zerno.GraphQL.Schemas
 {

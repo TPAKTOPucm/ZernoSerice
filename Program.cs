@@ -4,6 +4,7 @@ using System.Text.Json;
 using GraphQL.Server;
 using Zerno.Data;
 using Zerno.GraphQL.Schemas;
+using Zerno.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
