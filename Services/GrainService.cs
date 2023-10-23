@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Zerno.Data;
 using Zerno.Models;
 
-namespace Zerno.Data
+namespace Zerno.Services
 {
     public class GrainService : IGrainStorage
     {

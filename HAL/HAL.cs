@@ -2,6 +2,8 @@
 using System.Dynamic;
 using System.Text.Json.Serialization;
 using Zerno.Models;
+using Zerno.ZernoClasses;
+using User = Zerno.Models.User;
 
 namespace Zerno
 {
@@ -29,6 +31,24 @@ namespace Zerno
                 product = new { href = $"/api/product/{request.ProductId}" }
             };
             return resource;
+        }
+
+        public static RequestMessage ToMessage(this Request request)
+        {
+            var message = new RequestMessage
+            {
+                Ammount = request.Ammount,
+                Date = request.Date,
+                ProductPrice = request.Product.Price,
+                ProductType = request.Product.Type.ToString(),
+                Wanter = new ZernoClasses.User
+                {
+                    FirstName = request.Wanter.FirstName,
+                    LastName = request.Wanter.LastName,
+                    MiddleName = request.Wanter.MiddleName
+                }
+            };
+            return message;
         }
 
         public static dynamic ToResource(this User user)

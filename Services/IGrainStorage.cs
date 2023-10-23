@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Zerno.Models;
 
-namespace Zerno.Data
+namespace Zerno.Services
 {
     public interface IGrainStorage
     {
