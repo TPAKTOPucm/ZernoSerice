@@ -5,6 +5,7 @@ using GraphQL.Server;
 using Zerno.Data;
 using Zerno.GraphQL.Schemas;
 using Zerno.Services;
+using EasyNetQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddScoped<IGrainStorage, GrainService>();
 builder.Services.AddScoped<ISchema, GrainSchema>();
 builder.Services.AddGraphQL(options => { options.EnableMetrics = true; options.UnhandledExceptionDelegate = e => Console.WriteLine($"{e.Exception.Message}\n{e.Exception.StackTrace}"); }).AddSystemTextJson();
 
+var bus = RabbitHutch.CreateBus(builder.Configuration.GetConnectionString("RabbitMQ"));
+builder.Services.AddSingleton<IBus>(bus);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
