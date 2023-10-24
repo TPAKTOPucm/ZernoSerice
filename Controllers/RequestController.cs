@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EasyNetQ;
+using Microsoft.AspNetCore.Mvc;
 using Zerno.DTOs;
 using Zerno.Models;
 using Zerno.Services;
@@ -8,10 +9,12 @@ namespace Zerno.Controllers
     [Route("api/[controller]")]
     public class RequestController : Controller
     {
+        private readonly IBus _bus;
         private readonly IGrainStorage _db;
-        public RequestController(IGrainStorage db)
+        public RequestController(IGrainStorage db, IBus bus)
         {
             _db = db;
+            _bus = bus;
         }
 
         [HttpGet("byProduct/{id}")]
@@ -83,8 +86,13 @@ namespace Zerno.Controllers
                 WanterId = dto.WanterId
             };
             _db.CreateRequest(request);
+            request.Product = _db.GetProductById(dto.ProductId);
+            request.Wanter = _db.GetUserById(dto.WanterId);
+            PublishRequest(request);
             return Ok(dto);
         }
+
+        private async Task PublishRequest(Request request) => await _bus.PubSub.PublishAsync(request.ToMessage());
 
         [HttpDelete]
         public IActionResult Delete(int id)
