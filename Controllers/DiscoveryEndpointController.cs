@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-namespace Auto.API.Controllers;
+namespace Zerno.Controllers;
 
 [Route("api")]
 [ApiController]

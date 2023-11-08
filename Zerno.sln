@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleLogger", "..\Console
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZernoClasses", "..\ZernoClasses\ZernoClasses.csproj", "{E5081B57-BC1C-458F-A3CE-B332B9674086}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZernoPriceService", "..\ZernoPriceService\ZernoPriceService.csproj", "{8F3C1192-4FFC-4FE7-A9D0-82D4C39DE7DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPricer", "..\TestPricer\TestPricer.csproj", "{A91A02C2-F386-4234-B373-92909AD2EA60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{E5081B57-BC1C-458F-A3CE-B332B9674086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5081B57-BC1C-458F-A3CE-B332B9674086}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5081B57-BC1C-458F-A3CE-B332B9674086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F3C1192-4FFC-4FE7-A9D0-82D4C39DE7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F3C1192-4FFC-4FE7-A9D0-82D4C39DE7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F3C1192-4FFC-4FE7-A9D0-82D4C39DE7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F3C1192-4FFC-4FE7-A9D0-82D4C39DE7DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91A02C2-F386-4234-B373-92909AD2EA60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91A02C2-F386-4234-B373-92909AD2EA60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91A02C2-F386-4234-B373-92909AD2EA60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91A02C2-F386-4234-B373-92909AD2EA60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -51,25 +51,25 @@ namespace Zerno.Services
             _context.SaveChanges();
         }
 
-        public Product GetProductById(int productId) => _context.Products.Find(productId);
+        public Product GetProductById(int productId) => _context.Products.Include(p => p.Requests).Include(p => p.Dealer).Where(p => p.Id == productId).FirstOrDefault();
 
-        public ICollection<Product> GetProducts() => _context.Products.Include(p => p.Dealer).ToList();
+        public ICollection<Product> GetProducts() => _context.Products.Include(p => p.Requests).Include(p => p.Dealer).ToList();
 
-        public ICollection<Product> GetProducts(int index, int count) => _context.Products.Skip(index).Take(count).ToList();
+        public ICollection<Product> GetProducts(int index, int count) => _context.Products.Include(p => p.Requests).Include(p => p.Dealer).Skip(index).Take(count).ToList();
 
-        public Request GetRequestById(int requestId) => _context.Requests.Find(requestId);
+        public Request GetRequestById(int requestId) => _context.Requests.Include(r => r.Product).Include(r => r.Wanter).Where(r => r.Id == requestId).FirstOrDefault();
 
-        public ICollection<Request> GetRequests() => _context.Requests.Include(r => r.Product).ThenInclude(r => r.Dealer).ToList();
+        public ICollection<Request> GetRequests() => _context.Requests.Include(r => r.Product).Include(r => r.Wanter).ToList();
 
-        public ICollection<Request> GetRequestsByProductId(int productId) => _context.Requests.Include(r => r.Wanter).Where(r => r.ProductId == productId).ToList();
+        public ICollection<Request> GetRequestsByProductId(int productId) => _context.Requests.Include(r => r.Wanter).Include(r => r.Product).Where(r => r.ProductId == productId).ToList();
 
-        public ICollection<Request> GetRequestsByUserId(int userId) => _context.Requests.Include(r => r.Product).Where(r => r.WanterId == userId).ToList();
+        public ICollection<Request> GetRequestsByUserId(int userId) => _context.Requests.Include(r => r.Wanter).Include(r => r.Product).Where(r => r.WanterId == userId).ToList();
 
-        public User GetUserById(int userId) => _context.Users.Include(u => u.Products).ThenInclude(u => u.Requests).Where(u => u.Id == userId).FirstOrDefault();
+        public User GetUserById(int userId) => _context.Users.Include(u => u.Products).Include(u => u.BuyRequests).Where(u => u.Id == userId).FirstOrDefault();
 
-        public ICollection<User> GetUsers() => _context.Users.ToList();
+        public ICollection<User> GetUsers() => _context.Users.Include(u => u.Products).Include(u => u.BuyRequests).ToList();
 
-        public ICollection<User> GetUsers(int index, int count) => _context.Users.Skip(index).Take(count).ToList();
+        public ICollection<User> GetUsers(int index, int count) => _context.Users.Include(u => u.Products).Include(u => u.BuyRequests).Skip(index).Take(count).ToList();
 
         public void UpdateProduct(Product product)
         {

@@ -1,7 +1,9 @@
 ﻿using EasyNetQ;
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using Zerno.DTOs;
 using Zerno.Models;
+using Zerno.PriceService;
 using Zerno.Services;
 
 namespace Zerno.Controllers
@@ -11,10 +13,19 @@ namespace Zerno.Controllers
     {
         private readonly IBus _bus;
         private readonly IGrainStorage _db;
+        private GrpcChannel channel;
+        private Pricer.PricerClient grpcClient;
         public RequestController(IGrainStorage db, IBus bus)
         {
             _db = db;
             _bus = bus;
+
+            channel = GrpcChannel.ForAddress("http://localhost:5000");
+            grpcClient = new Pricer.PricerClient(channel);
+        }
+
+        ~RequestController() {
+            channel.Dispose();
         }
 
         [HttpGet("byProduct/{id}")]
@@ -88,8 +99,26 @@ namespace Zerno.Controllers
             _db.CreateRequest(request);
             request.Product = _db.GetProductById(dto.ProductId);
             request.Wanter = _db.GetUserById(dto.WanterId);
-            PublishRequest(request);
+            try
+            {
+                PublishRequest(request);
+                Console.WriteLine($"Рекомендуемая стоимость: {GetPrice(request.Product)}");
+            } catch (Exception) { }
             return Ok(dto);
+        }
+
+        private int GetPrice(Product product)
+        {
+            using var channel = GrpcChannel.ForAddress("http://localhost:5000");
+            var grpcClient = new Pricer.PricerClient(channel);
+            var request = new PriceRequest
+            {
+                Type = product.Type.ToString(),
+                Sort = product.Type == SeedType.Зерно ? 1 : 2,
+                Region = "Moscow"
+            };
+            var reply = grpcClient.GetPrice(request);
+            return reply.Price;
         }
 
         private async Task PublishRequest(Request request) => await _bus.PubSub.PublishAsync(request.ToMessage());

@@ -3,8 +3,7 @@ using Zerno.DTOs;
 using Zerno.Models;
 using Zerno.Services;
 
-namespace Zerno.Controllers
-{
+    namespace Zerno.Controllers;
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
@@ -99,4 +98,3 @@ namespace Zerno.Controllers
             return Ok(product.ToDynamic());
         }
     }
-}
