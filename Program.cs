@@ -6,15 +6,17 @@ using Zerno.Data;
 using Zerno.GraphQL.Schemas;
 using Zerno.Services;
 using EasyNetQ;
+using Zerno.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 builder.Services.AddDbContext<GrainContext>(options => options.UseSqlite(
         builder.Configuration.GetConnectionString("sqlite")
     ));
@@ -34,7 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseGraphQLAltair();
 }
-
+app.MapHub<ZernoHub>("/hub");
 app.UseAuthorization();
 
 app.MapControllers();

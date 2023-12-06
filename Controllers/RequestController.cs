@@ -1,6 +1,7 @@
 ﻿using EasyNetQ;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Client;
 using Zerno.DTOs;
 using Zerno.Models;
 using Zerno.PriceService;
@@ -15,6 +16,8 @@ namespace Zerno.Controllers
         private readonly IGrainStorage _db;
         private GrpcChannel channel;
         private Pricer.PricerClient grpcClient;
+        const string SIGNALR_HUB_URL = "http://localhost:5231/hub";
+        private static HubConnection hub;
         public RequestController(IGrainStorage db, IBus bus)
         {
             _db = db;
@@ -22,6 +25,9 @@ namespace Zerno.Controllers
 
             channel = GrpcChannel.ForAddress("http://localhost:5000");
             grpcClient = new Pricer.PricerClient(channel);
+
+            hub = new HubConnectionBuilder().WithUrl(SIGNALR_HUB_URL).Build();
+            hub.StartAsync();
         }
 
         ~RequestController() {
@@ -104,6 +110,7 @@ namespace Zerno.Controllers
                 PublishRequest(request);
                 Console.WriteLine($"Рекомендуемая стоимость: {GetPrice(request.Product)}");
             } catch (Exception) { }
+            hub.SendAsync("NotifyWebUsers", $"{request.Wanter.FirstName} {request.Wanter.LastName}", $"создал запрос на покупку {request.Product.Type} в количестве {request.Ammount} кг");
             return Ok(dto);
         }
 
