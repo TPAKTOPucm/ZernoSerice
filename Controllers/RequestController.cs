@@ -108,9 +108,9 @@ namespace Zerno.Controllers
             try
             {
                 PublishRequest(request);
-                Console.WriteLine($"Рекомендуемая стоимость: {GetPrice(request.Product)}");
-            } catch (Exception) { }
-            hub.SendAsync("NotifyWebUsers", $"{request.Wanter.FirstName} {request.Wanter.LastName}", $"создал запрос на покупку {request.Product.Type} в количестве {request.Ammount} кг");
+                hub.SendAsync("NotifyWebUsers", $"{request.Wanter.FirstName} {request.Wanter.LastName}", $"создал запрос на покупку {request.Product.Type} в количестве {request.Ammount} кг. Рекоменндуемая стоимость: {GetPrice(request.Product)}");
+            }
+            catch (Exception) { }
             return Ok(dto);
         }
 

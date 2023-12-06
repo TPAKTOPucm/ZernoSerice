@@ -2,7 +2,7 @@
 
 namespace Zerno.Controllers
 {
-    [Route("[controller]")]
+    [Route("requests")]
     public class TestSignalRController : Controller
     {
         [HttpGet]
